@@ -53,8 +53,8 @@ public class Usuario {
 		return perfil;
 	}
 
-	public void setPerfil(String perfil) {
-		this.perfil = perfil;
+	public void setPerfil(Object object) {
+		this.perfil = (String) object;
 	}
 
 	public Usuario(String id, String nome, String login, String cpf, String senha, String perfil) {

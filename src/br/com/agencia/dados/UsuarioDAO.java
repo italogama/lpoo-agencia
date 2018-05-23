@@ -67,6 +67,7 @@ public class UsuarioDAO {
 			pst.setString(2, usuario.getSenha());
 			pst.setString(3, usuario.getNome());
 			pst.setString(4, usuario.getCpf());
+			pst.setString(5, usuario.getPerfil());
 			return pst.executeUpdate();
 
 		} catch (SQLException e) {

@@ -10,8 +10,9 @@ import java.sql.SQLException;
 
 public class ConexaoMySQL {
 	
+	static java.sql.Connection conexao = null;
+	
 	public static Connection conector() {
-		java.sql.Connection conexao = null;
 		// a linha abaixo "chama" o driver
 		String driver = "com.mysql.jdbc.Driver";
 		// Armazenando informações referente ao banco
@@ -22,11 +23,23 @@ public class ConexaoMySQL {
 		
 		try {
 			Class.forName(driver);
-			conexao = DriverManager.getConnection(url, user, password);
+			if(conexao == null) {
+				conexao = DriverManager.getConnection(url, user, password);
+			}
 			return conexao;
 		} catch (Exception e) {
 			System.out.println(e);
 			return null;
+		}
+	}
+	
+	public static void closeConnection() {
+		if(conexao != null) {
+			try {
+				conexao.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }

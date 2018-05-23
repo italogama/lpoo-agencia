@@ -93,6 +93,7 @@ public class TelaUsuario extends JFrame {
 				usuario.setSenha(txtUsuSenha.getText());
 				usuario.setNome(txtUsuNome.getText());
 				usuario.setCpf(txtUsuCpf.getText());
+				usuario.setPerfil(cboUsuPerfil.getSelectedItem());
 
 				int adicionado = 0;
 
@@ -110,11 +111,12 @@ public class TelaUsuario extends JFrame {
 					txtUsuCpf.setText(null);
 					txtUsuSenha.setText(null);
 					cboUsuPerfil.setSelectedItem(null);
+					if (!isLogado) {
+						dispose();
+					}
 				}
 
-				if (isLogado) {
-					dispose();
-				}
+				
 			}
 		});
 
@@ -151,12 +153,17 @@ public class TelaUsuario extends JFrame {
 
 			public void actionPerformed(ActionEvent arg0) {
 				Usuario usuario = regraUsuario.consultaUsuario(txtUsuId.getText());
+				
+				if (usuario == null) {
+					JOptionPane.showMessageDialog(null, "Usuario não encontrado!");
+					return;
+				}
+					
 				txtUsuNome.setText(usuario.getNome());
 				txtUsuLogin.setText(usuario.getLogin());
-				txtUsuCpf.setText(null);
-				txtUsuSenha.setText(null);
-				cboUsuPerfil.setSelectedItem(null);
-				// JOptionPane.showMessageDialog(this, "Usuario não encontrado!");
+				txtUsuCpf.setText(usuario.getCpf());
+				txtUsuSenha.setText(usuario.getSenha());
+				cboUsuPerfil.setSelectedItem(usuario.getPerfil());
 			}
 		});
 		btnUsuRead.setToolTipText("Consultar");

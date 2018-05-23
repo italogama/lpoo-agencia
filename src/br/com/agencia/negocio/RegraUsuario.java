@@ -41,11 +41,10 @@ public class RegraUsuario {
 		} else if (!usuario.getCpf().matches("[0-9]*")) {
 			throw new Exception("CPF Invalido, deve conter apenas numeros!");
 		}
-		if (usuario.getId().isEmpty()) {
-			return usuarioDao.adicionar(usuario);
-
-		} else {
+		if (usuario.getId() != null && !usuario.getId().isEmpty()) {
 			return usuarioDao.alterar(usuario);
+		} else {
+			return usuarioDao.adicionar(usuario);
 		}
 	}
 
