@@ -18,6 +18,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import br.com.agencia.model.Sessao;
 import br.com.agencia.model.Usuario;
 import br.com.agencia.negocio.LoginRN;
 import br.com.agencia.negocio.RegraUsuario;
@@ -251,6 +252,28 @@ public class TelaUsuario extends JFrame {
 		lblNewLabel.setForeground(new Color(255, 0, 0));
 		lblNewLabel.setBounds(254, 119, 130, 14);
 		contentPane.add(lblNewLabel);
+		
+		if(Sessao.usuarioLogado != null) {
+			txtUsuId.setEnabled(true);
+			if (Sessao.usuarioLogado.getPerfil().equals("user")) {
+				txtUsuId.setEnabled(false);
+			}
+			txtUsuId.setText(Sessao.usuarioLogado.getId());
+			Usuario usuario = regraUsuario.consultaUsuario(Sessao.usuarioLogado.getId());
+			
+			if (usuario == null) {
+				return;
+			}
+				
+			txtUsuNome.setText(usuario.getNome());
+			txtUsuLogin.setText(usuario.getLogin());
+			txtUsuCpf.setText(usuario.getCpf());
+			txtUsuSenha.setText(usuario.getSenha());
+			cboUsuPerfil.setSelectedItem(usuario.getPerfil());
+			
+		}
+			
+		
 	}
 
 	public JButton getBtnUsuRead() {

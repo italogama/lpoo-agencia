@@ -23,6 +23,7 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import br.com.agencia.conexaoBanco.ConexaoMySQL;
+import br.com.agencia.model.Sessao;
 import br.com.agencia.model.Usuario;
 import br.com.agencia.negocio.LoginRN;
 
@@ -55,23 +56,23 @@ public class TelaLogin extends JFrame {
 	 * Create the frame.
 	 */
 	public void logarConfirmado(Usuario usuario) {
-		
-	
-				if (usuario.getPerfil().equals("admin")) {
-					TelaPrincipal principal = new TelaPrincipal();
-					principal.setVisible(true);
-					TelaPrincipal.mnCadastro.setEnabled(true);
-					TelaPrincipal.mntmCliente_1.setEnabled(true);
-					TelaPrincipal.lblLogado.setText(usuario.getNome());
-					TelaPrincipal.lblLogado.setForeground(Color.red);
-					this.dispose();
-				}else {
-					TelaPrincipal principal = new TelaPrincipal();
-					principal.setVisible(true);
-					TelaPrincipal.lblLogado.setText(usuario.getNome());
-					TelaPrincipal.lblLogado.setForeground(Color.blue);
-					this.dispose();
-				}
+
+		Sessao.usuarioLogado = usuario;
+		if (usuario.getPerfil().equals("admin")) {
+			TelaPrincipal principal = new TelaPrincipal();
+			principal.setVisible(true);
+			TelaPrincipal.mnCadastro.setEnabled(true);
+			TelaPrincipal.mntmCliente_1.setEnabled(true);
+			TelaPrincipal.lblLogado.setText(usuario.getNome());
+			TelaPrincipal.lblLogado.setForeground(Color.red);
+			this.dispose();
+		} else {
+			TelaPrincipal principal = new TelaPrincipal();
+			principal.setVisible(true);
+			TelaPrincipal.lblLogado.setText(usuario.getNome());
+			TelaPrincipal.lblLogado.setForeground(Color.blue);
+			this.dispose();
+		}
 
 	}
 
@@ -113,8 +114,8 @@ public class TelaLogin extends JFrame {
 		lblNovoAquiClique.setBounds(173, 222, 241, 14);
 		panel.add(lblNovoAquiClique);
 
-		/*Campo de Usuario*/
-		
+		/* Campo de Usuario */
+
 		txtUsuario = new JTextField();
 		txtUsuario.addKeyListener(new KeyAdapter() {
 			@Override
@@ -122,8 +123,8 @@ public class TelaLogin extends JFrame {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					usuario.setLogin(txtUsuario.getText());
 					try {
-					logarConfirmado(loginRN.doLogin(usuario));
-					}catch(Exception ex) {
+						logarConfirmado(loginRN.doLogin(usuario));
+					} catch (Exception ex) {
 						ex.printStackTrace();
 						JOptionPane.showMessageDialog(null, ex.getMessage());
 					}
@@ -149,14 +150,14 @@ public class TelaLogin extends JFrame {
 		panel.add(label);
 
 		/* BOTÃO DE LOGIN */
-		
+
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				usuario.setLogin(txtUsuario.getText());
-				usuario.setSenha(txtSenha.getText() );
+				usuario.setSenha(txtSenha.getText());
 				// Coletando as informações digitadas
-				
+
 				try {
 					// Entrando na regra de negocio "doLogin"
 					// Usuario logado = loginRN.doLogin(usuario);
@@ -165,7 +166,7 @@ public class TelaLogin extends JFrame {
 					e.printStackTrace();
 					JOptionPane.showMessageDialog(null, e.getMessage());
 				}
-				
+
 			}
 		});
 		btnLogin.setFont(new Font("Tahoma", Font.PLAIN, 10));
@@ -182,9 +183,8 @@ public class TelaLogin extends JFrame {
 		btnNewButton.setBounds(217, 126, 74, 23);
 		panel.add(btnNewButton);
 
-		
 		/* CAMPO DE SENHA */
-		
+
 		txtSenha = new JPasswordField();
 		txtSenha.addKeyListener(new KeyAdapter() {
 			@Override
@@ -192,7 +192,7 @@ public class TelaLogin extends JFrame {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					usuario.setLogin(txtUsuario.getText());
 					usuario.setSenha(txtSenha.getText());
-					
+
 					try {
 						logarConfirmado(loginRN.doLogin(usuario));
 					} catch (Exception e1) {
@@ -214,8 +214,8 @@ public class TelaLogin extends JFrame {
 		lblNewLabel.setIcon(new ImageIcon("img\\backlogin2.png"));
 		lblNewLabel.setBounds(0, 0, 414, 242);
 		panel.add(lblNewLabel);
-		
-		/* Criação de Thread para verificar status do server*/
+
+		/* Criação de Thread para verificar status do server */
 		Thread t = new Thread(new StatusServer(lblStatus));
 		t.start();
 	}
