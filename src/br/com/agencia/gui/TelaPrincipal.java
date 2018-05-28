@@ -17,6 +17,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class TelaPrincipal extends JFrame {
 
@@ -74,36 +76,48 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 		mnComprarPacote.add(mntmNewMenuItem_1);
-			
-			JMenu mnSobre = new JMenu("Ajuda");
-			menuBar.add(mnSobre);
-			
-			JMenuItem mntmNewMenuItem_2 = new JMenuItem("Sobre");
-			mntmNewMenuItem_2.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					JOptionPane.showMessageDialog(null, "Sistema desenvolvido para uma Agência de Viagens\n"
-							+ "Feito por: Robson, Italo, Erick, Leandro.");
-				}
-			});
-			mnSobre.add(mntmNewMenuItem_2);
-			
-				
-				JMenu mnConfiguraes = new JMenu("Configura\u00E7\u00F5es");
-				menuBar.add(mnConfiguraes);
-				
-				JMenuItem mntmSair = new JMenuItem("Sair");
-				mntmSair.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						//exibe uma caixa de dialogo pra saida do programa
-						int sair = JOptionPane.showConfirmDialog(null, "Tem certeza que gostaria de sair?","Atenção",JOptionPane.YES_NO_OPTION);
-						if (sair == JOptionPane.YES_OPTION) {
-							TelaLogin login = new TelaLogin();
-							login.setVisible(true);
-							dispose();
+					
+					JMenu mnSobre = new JMenu("Ajuda");
+					menuBar.add(mnSobre);
+					
+					JMenuItem mntmNewMenuItem_2 = new JMenuItem("Sobre");
+					mntmNewMenuItem_2.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0) {
+							JOptionPane.showMessageDialog(null, "Sistema desenvolvido para uma Agência de Viagens\n"
+									+ "Feito por: Robson, Italo, Erick, Leandro.");
 						}
-					}
-				});
-				mnConfiguraes.add(mntmSair);
+					});
+					mnSobre.add(mntmNewMenuItem_2);
+					
+					JMenu mnPerfil = new JMenu("Perfil");
+					mnPerfil.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							TelaPerfil telaperfil = new TelaPerfil();
+							telaperfil.setVisible(true);
+						}
+					});
+					menuBar.add(mnPerfil);
+					
+					JMenu menu = new JMenu("\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0");
+					menu.setEnabled(false);
+					menuBar.add(menu);
+					
+						
+						JMenu mnConfiguraes = new JMenu("Sair");
+						mnConfiguraes.addMouseListener(new MouseAdapter() {
+							@Override
+							public void mouseClicked(MouseEvent arg0) {
+								//exibe uma caixa de dialogo pra saida do programa
+								int sair = JOptionPane.showConfirmDialog(null, "Tem certeza que gostaria de sair?","Atenção",JOptionPane.YES_NO_OPTION);
+								if (sair == JOptionPane.YES_OPTION) {
+									TelaLogin login = new TelaLogin();
+									login.setVisible(true);
+									dispose();
+								}
+							}
+						});
+						menuBar.add(mnConfiguraes);
 		contentPanePrincipal = new JPanel();
 		contentPanePrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPanePrincipal.setLayout(new BorderLayout(0, 0));

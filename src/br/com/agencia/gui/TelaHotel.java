@@ -39,6 +39,7 @@ public class TelaHotel extends JFrame {
 		setTitle(".: Hoteis :.");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(400, 200, 599, 416);
+		setResizable(false);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -92,6 +93,11 @@ public class TelaHotel extends JFrame {
 		contentPane.add(lblNewLabel_1);
 
 		JButton btnNewButton = new JButton("Todos");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				consultaHotel("");
+			}
+		});
 		btnNewButton.setBounds(160, 56, 89, 23);
 		contentPane.add(btnNewButton);
 
