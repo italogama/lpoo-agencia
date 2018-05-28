@@ -6,23 +6,37 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import br.com.agencia.model.Sessao;
+import br.com.agencia.model.Usuario;
+import br.com.agencia.negocio.RegraUsuario;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class TelaPerfil extends JFrame {
 
 	public JPanel contentPane;
-	public static JTextField textUsuNome;
-	public static JTextField textUsuCpf;
-	public static JTextField textUsuLogin;
-	public static JTextField textUsuSenha;
+	public static JTextField txtUsuNome;
+	public static JTextField txtUsuCpf;
+	public static JTextField txtUsuLogin;
+	public static JTextField txtUsuSenha;
+	private RegraUsuario regraUsuario;
+	static JComboBox cboUsuPerfil;
 	
 	public TelaPerfil() {
+		
+		regraUsuario = new RegraUsuario();
+		
 		setTitle(".: Painel :.");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(480, 230, 450, 300);
@@ -61,31 +75,57 @@ public class TelaPerfil extends JFrame {
 		lblNewLabel_2.setBounds(250, 46, 144, 142);
 		contentPane.add(lblNewLabel_2);
 		
-		textUsuNome = new JTextField();
-		textUsuNome.setEditable(false);
-		textUsuNome.setBounds(61, 62, 164, 20);
-		contentPane.add(textUsuNome);
-		textUsuNome.setColumns(10);
+		txtUsuNome = new JTextField();
+		txtUsuNome.setEditable(false);
+		txtUsuNome.setBounds(61, 62, 164, 20);
+		contentPane.add(txtUsuNome);
+		txtUsuNome.setColumns(10);
 		
-		textUsuCpf = new JTextField();
-		textUsuCpf.setEditable(false);
-		textUsuCpf.setBounds(60, 91, 165, 20);
-		contentPane.add(textUsuCpf);
-		textUsuCpf.setColumns(10);
+		txtUsuCpf = new JTextField();
+		txtUsuCpf.setEditable(false);
+		txtUsuCpf.setBounds(60, 91, 165, 20);
+		contentPane.add(txtUsuCpf);
+		txtUsuCpf.setColumns(10);
 		
-		textUsuLogin = new JTextField();
-		textUsuLogin.setEditable(false);
-		textUsuLogin.setBounds(61, 123, 164, 20);
-		contentPane.add(textUsuLogin);
-		textUsuLogin.setColumns(10);
+		txtUsuLogin = new JTextField();
+		txtUsuLogin.setEditable(false);
+		txtUsuLogin.setBounds(61, 123, 164, 20);
+		contentPane.add(txtUsuLogin);
+		txtUsuLogin.setColumns(10);
 		
-		textUsuSenha = new JTextField();
-		textUsuSenha.setEditable(false);
-		textUsuSenha.setBounds(61, 154, 164, 20);
-		contentPane.add(textUsuSenha);
-		textUsuSenha.setColumns(10);
+		txtUsuSenha = new JTextField();
+		txtUsuSenha.setEditable(false);
+		txtUsuSenha.setBounds(61, 154, 164, 20);
+		contentPane.add(txtUsuSenha);
+		txtUsuSenha.setColumns(10);
 		
 		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e)  {
+
+				Usuario usuario = new Usuario();
+				
+				usuario.setId(Sessao.usuarioLogado.getId());
+				usuario.setLogin(txtUsuLogin.getText());
+				usuario.setSenha(txtUsuSenha.getText());
+				usuario.setNome(txtUsuNome.getText());
+				usuario.setCpf(txtUsuCpf.getText());
+				usuario.setPerfil(Sessao.usuarioLogado.getPerfil());
+				int adicionado = 0;
+				try {
+					adicionado = regraUsuario.adicionarOrAlterar(usuario);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, e1.getMessage());
+				}
+
+				if (adicionado > 0) {
+					JOptionPane.showMessageDialog(null, "Dados do usuário alterados com sucesso!!");
+				}
+
+			}
+
+		});
 		btnSalvar.setBounds(226, 203, 89, 23);
 		contentPane.add(btnSalvar);
 		
@@ -96,13 +136,29 @@ public class TelaPerfil extends JFrame {
 		JButton btnAtualizar = new JButton("Atualizar");
 		btnAtualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				TelaPerfil.textUsuNome.setEditable(true);
-				TelaPerfil.textUsuCpf.setEditable(true);
-				TelaPerfil.textUsuLogin.setEditable(true);
-				TelaPerfil.textUsuSenha.setEditable(true);
+				TelaPerfil.txtUsuNome.setEditable(true);
+				TelaPerfil.txtUsuCpf.setEditable(true);
+				TelaPerfil.txtUsuLogin.setEditable(true);
+				TelaPerfil.txtUsuSenha.setEditable(true);
 			}
 		});
 		btnAtualizar.setBounds(10, 203, 89, 23);
 		contentPane.add(btnAtualizar);
+		
+		if(Sessao.usuarioLogado != null) {
+			Usuario usuario = regraUsuario.consultaUsuario(Sessao.usuarioLogado.getId());
+			
+			if (usuario == null) {
+				return;
+			}
+				
+			txtUsuNome.setText(usuario.getNome());
+			txtUsuLogin.setText(usuario.getLogin());
+			txtUsuCpf.setText(usuario.getCpf());
+			txtUsuSenha.setText(usuario.getSenha());
+			
+		}
+			
 	}
+	
 }
