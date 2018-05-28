@@ -22,6 +22,7 @@ import javax.swing.JComboBox;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
 
 public class TelaPerfil extends JFrame {
 
@@ -29,9 +30,9 @@ public class TelaPerfil extends JFrame {
 	public static JTextField txtUsuNome;
 	public static JTextField txtUsuCpf;
 	public static JTextField txtUsuLogin;
-	public static JTextField txtUsuSenha;
 	private RegraUsuario regraUsuario;
 	static JComboBox cboUsuPerfil;
+	private JPasswordField txtUsuSenha;
 	
 	public TelaPerfil() {
 		
@@ -93,12 +94,6 @@ public class TelaPerfil extends JFrame {
 		contentPane.add(txtUsuLogin);
 		txtUsuLogin.setColumns(10);
 		
-		txtUsuSenha = new JTextField();
-		txtUsuSenha.setEditable(false);
-		txtUsuSenha.setBounds(61, 154, 164, 20);
-		contentPane.add(txtUsuSenha);
-		txtUsuSenha.setColumns(10);
-		
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)  {
@@ -136,14 +131,18 @@ public class TelaPerfil extends JFrame {
 		JButton btnAtualizar = new JButton("Atualizar");
 		btnAtualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				TelaPerfil.txtUsuNome.setEditable(true);
-				TelaPerfil.txtUsuCpf.setEditable(true);
-				TelaPerfil.txtUsuLogin.setEditable(true);
-				TelaPerfil.txtUsuSenha.setEditable(true);
+				txtUsuNome.setEditable(true);
+				txtUsuCpf.setEditable(true);
+				txtUsuLogin.setEditable(true);
+				txtUsuSenha.setEditable(true);
 			}
 		});
 		btnAtualizar.setBounds(10, 203, 89, 23);
 		contentPane.add(btnAtualizar);
+		
+		txtUsuSenha = new JPasswordField();
+		txtUsuSenha.setBounds(61, 154, 164, 20);
+		contentPane.add(txtUsuSenha);
 		
 		if(Sessao.usuarioLogado != null) {
 			Usuario usuario = regraUsuario.consultaUsuario(Sessao.usuarioLogado.getId());
@@ -160,5 +159,4 @@ public class TelaPerfil extends JFrame {
 		}
 			
 	}
-	
 }
