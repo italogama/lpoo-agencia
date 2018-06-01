@@ -2,16 +2,25 @@ package br.com.agencia.model;
 
 public class Hotel {
 	private int hotel_id;
+	private String hotel_nome;
 	private String hotel_rua;
 	private String hotel_numero;
 	private String hotel_bairro;
 	private String hotel_cidade;
-	private String hotel_rep;
+	private String hotel_reput;
+	private int hotel_diaria;
+	
 	public int getHotel_id() {
 		return hotel_id;
 	}
 	public void setHotel_id(int hotel_id) {
 		this.hotel_id = hotel_id;
+	}
+	public String getHotel_nome() {
+		return hotel_nome;
+	}
+	public void setHotel_nome(String hotel_nome) {
+		this.hotel_nome = hotel_nome;
 	}
 	public String getHotel_rua() {
 		return hotel_rua;
@@ -37,13 +46,19 @@ public class Hotel {
 	public void setHotel_cidade(String hotel_cidade) {
 		this.hotel_cidade = hotel_cidade;
 	}
-	public String getHotel_rep() {
-		return hotel_rep;
+	public String getHotel_reput() {
+		return hotel_reput;
 	}
-	public void setHotel_rep(String hotel_rep) {
-		this.hotel_rep = hotel_rep;
+	public void setHotel_reput(String hotel_reput) {
+		this.hotel_reput = hotel_reput;
+	}
+	public int getHotel_diaria() {
+		return hotel_diaria;
+	}
+	public void setHotel_diaria(int hotel_diaria) {
+		this.hotel_diaria = hotel_diaria;
 	}
 	
 	
-
+	
 }
