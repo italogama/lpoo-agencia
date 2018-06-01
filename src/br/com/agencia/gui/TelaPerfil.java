@@ -97,7 +97,7 @@ public class TelaPerfil extends JFrame {
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)  {
-
+				
 				Usuario usuario = new Usuario();
 				
 				usuario.setId(Sessao.usuarioLogado.getId());
@@ -115,6 +115,7 @@ public class TelaPerfil extends JFrame {
 				}
 
 				if (adicionado > 0) {
+					TelaPrincipal.lblLogado.setText(usuario.getNome());
 					JOptionPane.showMessageDialog(null, "Dados do usuário alterados com sucesso!!");
 				}
 

@@ -16,10 +16,14 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.TableModel;
 
 import br.com.agencia.conexaoBanco.ConexaoMySQL;
-
+import br.com.agencia.model.Compra;
+import br.com.agencia.model.Sessao;
+import br.com.agencia.negocio.RegraCompra;
 import net.proteanit.sql.DbUtils;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class TelaCompras extends JFrame {
 
@@ -28,10 +32,11 @@ public class TelaCompras extends JFrame {
 	private JTable table;
 	private JScrollPane scrollPane;
 	private Connection conexao = null;
-	private JTable table2;
+	private RegraCompra regraCompra = null;
 	
 	public TelaCompras() {
 		
+		regraCompra = new RegraCompra();
 		conexao = ConexaoMySQL.conector();
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -43,7 +48,7 @@ public class TelaCompras extends JFrame {
 		contentPane.setLayout(null);	
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 45, 503, 154);
+		scrollPane.setBounds(10, 45, 503, 208);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
@@ -79,30 +84,25 @@ public class TelaCompras extends JFrame {
 		lblNewLabel.setBounds(170, 11, 182, 23);
 		contentPane.add(lblNewLabel);
 		
-		JScrollPane scrollPane2 = new JScrollPane();
-		scrollPane2.setBounds(10, 210, 503, 36);
-		contentPane.add(scrollPane2);
-		
-		table2 = new JTable();
-		scrollPane2.setViewportView(table2);
-		
 		//table.getSelectedRows();
 		
 		JButton btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				table.getSelectedRows();
-				table.getSelectedColumns();
-/*				try {
-					String query = "select * from tbpct_viagem";
-					PreparedStatement pst=conexao.prepareStatement(query);
-					ResultSet rs=pst.executeQuery();
-					
-					table.setModel(DbUtils.resultSetToTableModel(rs));
-				} catch (Exception e) {
-					
-				}*/
+				int row = table.getSelectedRow();
+				String Table_click = (table.getModel().getValueAt(row, 1).toString());
+				int idPacote = (int) table.getModel().getValueAt(row, 0);
+				double valor = Double.parseDouble( table.getModel().getValueAt(row, 3).toString() );
+				Compra novaCompra = new Compra();
+				novaCompra.setIdUsuario( Integer.parseInt(Sessao.usuarioLogado.getId()) );
+				novaCompra.setIdPacote(idPacote);
+				novaCompra.setValor(valor);
+				int qtdInserido = regraCompra.cadastrar(novaCompra);
+				if (qtdInserido > 0) {
+					//msg inserido com sucesso
+				}else{
+					//merds ao inserir a compra
+				}
 			}
 		});
 		btnConfirmar.setBounds(296, 280, 99, 23);
@@ -118,6 +118,7 @@ public class TelaCompras extends JFrame {
 		contentPane.add(btnVoltar);
 		
 		
-	
+		
+		
 	}
 }

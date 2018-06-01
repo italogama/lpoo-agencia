@@ -25,7 +25,7 @@ public class TelaPrincipal extends JFrame {
 	public JPanel contentPanePrincipal;
 	public static JMenu mnCadastro;
 	static JMenuItem mntmCliente_1;
-	static JLabel lblLogado;
+	public static JLabel lblLogado;
 
 	public TelaPrincipal() {
 		

@@ -2,7 +2,6 @@ package br.com.agencia.dados;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.Date;
 
 import br.com.agencia.conexaoBanco.ConexaoMySQL;
@@ -12,7 +11,6 @@ public class CompraDAO {
 
 	private Connection conexao = null;
 	private PreparedStatement pst = null;
-	private ResultSet rs = null;
 	String queryConsultaPelaId = "select * from tbCompra where id=?";
 	String queryAdicionarCompra = "INSERT INTO tbcompra_viagens (usuario,pct_id,dt_compra,pct_valor)VALUES(?,?,?,?)";
 	String queryDeletarCompra = "delete from tbCompra where id=?";
@@ -21,7 +19,6 @@ public class CompraDAO {
 	public CompraDAO() {
 		conexao = ConexaoMySQL.conector();
 		pst = null;
-		rs = null;
 	}
 
 	public int cadastrar(Compra compra) {
@@ -31,7 +28,7 @@ public class CompraDAO {
 			pst = conexao.prepareStatement(queryAdicionarCompra);
 			pst.setInt(1, compra.getIdUsuario());
 			pst.setInt(2, compra.getIdPacote());
-			pst.setDate(3, (java.sql.Date) new Date());
+			pst.setDate(3, new java.sql.Date(new Date().getTime()) );
 			pst.setDouble(4, compra.getValor());
 			return pst.executeUpdate();
 
