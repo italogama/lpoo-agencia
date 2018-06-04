@@ -96,13 +96,13 @@ public class TelaHotel extends JFrame {
 		table.getColumnModel().getColumn(1).setPreferredWidth(60);
 		table.getTableHeader().getColumnModel().getColumn(2).setHeaderValue("Rua");
 		table.getColumnModel().getColumn(2).setPreferredWidth(100);
-		table.getTableHeader().getColumnModel().getColumn(3).setHeaderValue("Nº");
+		table.getTableHeader().getColumnModel().getColumn(3).setHeaderValue("NÂº");
 		table.getColumnModel().getColumn(3).setPreferredWidth(10);
 		table.getTableHeader().getColumnModel().getColumn(4).setHeaderValue("Bairro");
 		table.getColumnModel().getColumn(4).setPreferredWidth(45);
 		table.getTableHeader().getColumnModel().getColumn(5).setHeaderValue("Cidade");
 		table.getColumnModel().getColumn(5).setPreferredWidth(50);
-		table.getTableHeader().getColumnModel().getColumn(6).setHeaderValue("Reputação");
+		table.getTableHeader().getColumnModel().getColumn(6).setHeaderValue("Reputacao");
 		table.getColumnModel().getColumn(6).setPreferredWidth(50);
 		table.getTableHeader().getColumnModel().getColumn(7).setHeaderValue("Valor Diaria");
 		table.getColumnModel().getColumn(6).setPreferredWidth(50);

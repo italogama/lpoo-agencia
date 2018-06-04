@@ -2,10 +2,12 @@ package br.com.agencia.dados;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Date;
 
 import br.com.agencia.conexaoBanco.ConexaoMySQL;
 import br.com.agencia.model.Compra;
+import br.com.agencia.model.Sessao;
 
 public class CompraDAO {
 
@@ -38,5 +40,30 @@ public class CompraDAO {
 
 		return 0;
 
+	}
+	
+	public ResultSet retornarUltimasCompras(String idUsuario) {
+		
+		String query = "SELECT " + 
+				"    p.pct_destino, v.dt_compra, v.pct_valor" + 
+				" FROM " + 
+				"    tbcompra_viagens v" + 
+				"        INNER JOIN" + 
+				"    tbpct_viagem p ON p.pct_id = v.pct_id" + 
+				"    INNER JOIN" + 
+				"    tbusuario u ON u.id = v.usuario" + 
+				"    where u.id = ?" + 
+				"";
+		
+		PreparedStatement pst;
+		try {
+			pst = conexao.prepareStatement(query);
+			pst.setString(1, idUsuario);
+			return pst.executeQuery();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 }

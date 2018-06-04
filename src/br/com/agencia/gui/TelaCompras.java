@@ -21,9 +21,12 @@ import br.com.agencia.model.Sessao;
 import br.com.agencia.negocio.RegraCompra;
 import net.proteanit.sql.DbUtils;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.ImageIcon;
 
 public class TelaCompras extends JFrame {
 
@@ -35,6 +38,7 @@ public class TelaCompras extends JFrame {
 	private RegraCompra regraCompra = null;
 	
 	public TelaCompras() {
+		setTitle(".: Compras :.");
 		
 		regraCompra = new RegraCompra();
 		conexao = ConexaoMySQL.conector();
@@ -48,7 +52,7 @@ public class TelaCompras extends JFrame {
 		contentPane.setLayout(null);	
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 45, 503, 208);
+		scrollPane.setBounds(10, 101, 503, 139);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
@@ -79,11 +83,6 @@ public class TelaCompras extends JFrame {
 			e1.printStackTrace();
 		}
 		
-		JLabel lblNewLabel = new JLabel("Pacotes Disponiveis");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel.setBounds(170, 11, 182, 23);
-		contentPane.add(lblNewLabel);
-		
 		//table.getSelectedRows();
 		
 		JButton btnConfirmar = new JButton("Confirmar");
@@ -99,9 +98,11 @@ public class TelaCompras extends JFrame {
 				novaCompra.setValor(valor);
 				int qtdInserido = regraCompra.cadastrar(novaCompra);
 				if (qtdInserido > 0) {
-					//msg inserido com sucesso
+					JOptionPane.showMessageDialog(null, "Compra realizada com sucesso!!");
+					TelaPrincipal.atualizaCompras(regraCompra.retornarUltimasCompras(Sessao.usuarioLogado.getId()), table);
+					dispose();
 				}else{
-					//merds ao inserir a compra
+					//erro
 				}
 			}
 		});
@@ -116,6 +117,11 @@ public class TelaCompras extends JFrame {
 		});
 		btnVoltar.setBounds(405, 280, 89, 23);
 		contentPane.add(btnVoltar);
+		
+		JLabel lblNewLabel_1 = new JLabel("New label");
+		lblNewLabel_1.setIcon(new ImageIcon("img\\telacompras.png"));
+		lblNewLabel_1.setBounds(0, 0, 533, 324);
+		contentPane.add(lblNewLabel_1);
 		
 		
 		
