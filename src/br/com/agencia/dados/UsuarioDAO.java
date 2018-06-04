@@ -58,7 +58,7 @@ public class UsuarioDAO {
 
 	}
 
-	public int adicionar(Usuario usuario) {
+	public int adicionar(Usuario usuario) throws Exception {
 
 		try {
 			pst = conexao.prepareStatement(queryAdicionarUsuario);
@@ -72,8 +72,8 @@ public class UsuarioDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new Exception(e.getMessage());
 		}
-		return 0;
 	}
 
 	public int remover(String id) {

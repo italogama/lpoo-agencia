@@ -159,7 +159,9 @@ public class TelaUsuario extends JFrame {
 				if (usuario == null) {
 					JOptionPane.showMessageDialog(null, "Usuario não encontrado!");
 					return;
-				}
+				}else {
+					JOptionPane.showMessageDialog(null, "Consulta Realizada");
+				}	
 					
 				txtUsuNome.setText(usuario.getNome());
 				txtUsuLogin.setText(usuario.getLogin());
