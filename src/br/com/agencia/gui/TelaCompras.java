@@ -99,7 +99,7 @@ public class TelaCompras extends JFrame {
 				int qtdInserido = regraCompra.cadastrar(novaCompra);
 				if (qtdInserido > 0) {
 					JOptionPane.showMessageDialog(null, "Compra realizada com sucesso!!");
-					TelaPrincipal.atualizaCompras(regraCompra.retornarUltimasCompras(Sessao.usuarioLogado.getId()), table);
+					TelaPrincipal.atualizaCompras(regraCompra.retornarUltimasCompras(Sessao.usuarioLogado.getId()), TelaPrincipal.table);
 					dispose();
 				}else{
 					//erro

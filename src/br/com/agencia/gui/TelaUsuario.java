@@ -256,14 +256,19 @@ public class TelaUsuario extends JFrame {
 		lblNewLabel.setBounds(254, 119, 130, 14);
 		contentPane.add(lblNewLabel);
 		
+		
+		Usuario usuario = null;
 		if(Sessao.usuarioLogado != null) {
 			txtUsuId.setEnabled(true);
-			if (Sessao.usuarioLogado.getPerfil().equals("user")) {
+			if (Sessao.usuarioLogado.getPerfil() == null ) {
+				txtUsuId.setEnabled(false);
+			}else if (Sessao.usuarioLogado.getPerfil().equals("user")){
 				txtUsuId.setEnabled(false);
 			}
-			txtUsuId.setText(Sessao.usuarioLogado.getId());
-			Usuario usuario = regraUsuario.consultaUsuario(Sessao.usuarioLogado.getId());
-			
+			if (Sessao.usuarioLogado.getId() != null) {
+				txtUsuId.setText(Sessao.usuarioLogado.getId());
+				usuario = regraUsuario.consultaUsuario(Sessao.usuarioLogado.getId());
+			}
 			if (usuario == null) {
 				return;
 			}

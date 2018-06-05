@@ -38,7 +38,7 @@ public class TelaPrincipal extends JFrame {
 	public static JMenu mnCadastro;
 	static JMenuItem mntmCliente_1;
 	public static JLabel lblLogado;
-	private JTable table;
+	public static JTable table;
 	private RegraCompra regraCompra = null;
 
 	public TelaPrincipal() {

@@ -24,6 +24,7 @@ import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 
 public class TelaHotel extends JFrame {
 
@@ -47,7 +48,7 @@ public class TelaHotel extends JFrame {
 		contentPane.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 104, 573, 272);
+		scrollPane.setBounds(10, 142, 573, 191);
 		contentPane.add(scrollPane);
 
 		table = new JTable();
@@ -56,24 +57,13 @@ public class TelaHotel extends JFrame {
 		
 		consulta(regraHotel.consultar());
 
-		JLabel lblNewLabel = new JLabel("Pesquisa de Hoteis");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel.setBounds(175, 20, 138, 25);
-		contentPane.add(lblNewLabel);
-
-		JLabel lblNewLabel_1 = new JLabel("Disponiveis");
-		lblNewLabel_1.setForeground(new Color(0, 128, 0));
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_1.setBounds(311, 22, 80, 21);
-		contentPane.add(lblNewLabel_1);
-
 		JButton btnNewButton = new JButton("Todos");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				consulta(regraHotel.consultar());
 			}
 		});
-		btnNewButton.setBounds(160, 56, 89, 23);
+		btnNewButton.setBounds(159, 108, 89, 23);
 		contentPane.add(btnNewButton);
 
 		JButton btnNewButton_1 = new JButton("Mais Barato");
@@ -82,8 +72,22 @@ public class TelaHotel extends JFrame {
 				consulta(regraHotel.consultarOrdenado());
 			}
 		});
-		btnNewButton_1.setBounds(321, 56, 109, 23);
+		btnNewButton_1.setBounds(318, 108, 109, 23);
 		contentPane.add(btnNewButton_1);
+		
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		btnVoltar.setBounds(494, 353, 89, 23);
+		contentPane.add(btnVoltar);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon("img\\hotelback.png"));
+		lblNewLabel.setBounds(0, 0, 593, 387);
+		contentPane.add(lblNewLabel);
 
 		setResizable(false);
 	}
@@ -108,5 +112,4 @@ public class TelaHotel extends JFrame {
 		table.getColumnModel().getColumn(6).setPreferredWidth(50);
 		repaint();
 	}
-
 }

@@ -126,6 +126,11 @@ public class TelaPerfil extends JFrame {
 		contentPane.add(btnSalvar);
 		
 		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+			}
+		});
 		btnVoltar.setBounds(325, 203, 89, 23);
 		contentPane.add(btnVoltar);
 		
