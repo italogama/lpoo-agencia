@@ -20,5 +20,9 @@ public class RegraCompra {
 	public ResultSet retornarUltimasCompras(String idUsuario) {
 		return compraDao.retornarUltimasCompras(idUsuario);
 	}
+	
+	public ResultSet retornaPacotes() {
+		return compraDao.retornaPacotes();
+	}
 
 }

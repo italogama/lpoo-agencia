@@ -66,4 +66,22 @@ public class CompraDAO {
 		
 		return null;
 	}
+	
+	public ResultSet retornaPacotes() {
+		String query = "select v.pct_id  " + 
+				"	,v.pct_nome  " + 
+				"	,v.pct_destino  " + 
+				"	,v.pct_valor  " + 
+				"	,v.pct_diaria_incluida  " + 
+				"	,h.hotel_nome   " + 
+				"from tbpct_viagem v inner join tbhotel h ON v.pct_hotel = h.hotel_id;";
+		PreparedStatement pst;
+		try {
+			pst = conexao.prepareStatement(query);
+			return pst.executeQuery();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

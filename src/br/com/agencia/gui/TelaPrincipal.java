@@ -24,6 +24,7 @@ import javax.swing.border.EmptyBorder;
 
 import br.com.agencia.conexaoBanco.ConexaoMySQL;
 import br.com.agencia.model.Sessao;
+import br.com.agencia.model.Usuario;
 import br.com.agencia.negocio.RegraCompra;
 import net.proteanit.sql.DbUtils;
 
@@ -128,6 +129,7 @@ public class TelaPrincipal extends JFrame {
 				int sair = JOptionPane.showConfirmDialog(null, "Tem certeza que gostaria de sair?", "Atenção",
 						JOptionPane.YES_NO_OPTION);
 				if (sair == JOptionPane.YES_OPTION) {
+					Sessao.usuarioLogado = new Usuario();
 					TelaLogin login = new TelaLogin();
 					login.setVisible(true);
 					dispose();

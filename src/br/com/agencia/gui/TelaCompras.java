@@ -34,14 +34,12 @@ public class TelaCompras extends JFrame {
 	
 	private JTable table;
 	private JScrollPane scrollPane;
-	private Connection conexao = null;
 	private RegraCompra regraCompra = null;
 	
 	public TelaCompras() {
 		setTitle(".: Compras :.");
 		
 		regraCompra = new RegraCompra();
-		conexao = ConexaoMySQL.conector();
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(430, 220, 539, 353);
@@ -57,33 +55,17 @@ public class TelaCompras extends JFrame {
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
-		
-		String query = "select v.pct_id  " + 
-				"	,v.pct_nome  " + 
-				"	,v.pct_destino  " + 
-				"	,v.pct_valor  " + 
-				"	,v.pct_diaria_incluida  " + 
-				"	,h.hotel_nome   " + 
-				"from tbpct_viagem v inner join tbhotel h ON v.pct_hotel = h.hotel_id;";
-		PreparedStatement pst;
-		try {
-			pst = conexao.prepareStatement(query);
-			ResultSet rs=pst.executeQuery();
-			table.setModel(DbUtils.resultSetToTableModel(rs));
-			table.getTableHeader().getColumnModel().getColumn(0).setHeaderValue("ID");
-			table.getColumnModel().getColumn(0).setPreferredWidth(15);
-			table.getTableHeader().getColumnModel().getColumn(1).setHeaderValue("Nome do Pacote");
-			table.getColumnModel().getColumn(1).setPreferredWidth(100);
-			table.getTableHeader().getColumnModel().getColumn(2).setHeaderValue("Destino");
-			table.getTableHeader().getColumnModel().getColumn(3).setHeaderValue("Valor");
-			table.getTableHeader().getColumnModel().getColumn(4).setHeaderValue("Diaria Inclusa");
-			table.getTableHeader().getColumnModel().getColumn(5).setHeaderValue("Hotel");
-			repaint();
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
-		
-		//table.getSelectedRows();
+	
+		table.setModel(DbUtils.resultSetToTableModel(regraCompra.retornaPacotes()));
+		table.getTableHeader().getColumnModel().getColumn(0).setHeaderValue("ID");
+		table.getColumnModel().getColumn(0).setPreferredWidth(15);
+		table.getTableHeader().getColumnModel().getColumn(1).setHeaderValue("Nome do Pacote");
+		table.getColumnModel().getColumn(1).setPreferredWidth(100);
+		table.getTableHeader().getColumnModel().getColumn(2).setHeaderValue("Destino");
+		table.getTableHeader().getColumnModel().getColumn(3).setHeaderValue("Valor");
+		table.getTableHeader().getColumnModel().getColumn(4).setHeaderValue("Diaria Inclusa");
+		table.getTableHeader().getColumnModel().getColumn(5).setHeaderValue("Hotel");
+		repaint();
 		
 		JButton btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.addActionListener(new ActionListener() {
